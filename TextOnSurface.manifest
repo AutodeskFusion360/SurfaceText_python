@@ -1,0 +1,12 @@
+{
+	"autodeskProduct":	"Fusion360",
+	"type":	"addin",
+	"id":	"E2993E87-3C0F-4D56-929D-5462C5519F4B",
+	"author":	"Xiaodong Liang, Autodesk",
+	"description":	{
+		"":	"Design Text on a Surface"
+	},
+	"version":	"1.0.0",
+	"runOnStartup":	true,
+	"supportedOS":	"windows|mac"
+} 
