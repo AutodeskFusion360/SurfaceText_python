@@ -93,6 +93,8 @@ class EmbossTextCommandExecuteHandler(adsk.core.CommandEventHandler):
                 #   embossText.fontName = input.selectedItem.name    
                 if input.id == 'fontName_by_typing':
                     embossText.fontName_by_typing = input.value
+                if input.id == 'isFlipDirAtAxis':
+                    embossText.isFlipDirAtAxis = input.value
                
                     
             #try to create the result text feature            
@@ -178,7 +180,7 @@ class EmbossTextCommandCreatedHandler(adsk.core.CommandCreatedEventHandler):
             #use a workaround to ask the user to input the font name
             #they can check the name from sketch text editing dialog themselves.
             
-            font_name_by_typing = inputs.addStringValueInput('fontName_by_typing', 'Text', '')
+            font_name_by_typing = inputs.addStringValueInput('fontName_by_typing', 'Font Name', '')
             #give a default one which should exist
             font_name_by_typing.value = 'Arial'           
             
@@ -199,6 +201,9 @@ class EmbossTextCommandCreatedHandler(adsk.core.CommandCreatedEventHandler):
             #set a default start angle
             startAngleV.expressionOne = '0.1 rad'
             
+            isFlipDirAtAxis = inputs.addBoolValueInput('isFlipDirAtAxis','Flip Direction at Axis',True,'./resources',False)            
+            isFlipDirAtAxis.value = False
+			
             #the distance of text position along axis direction
             initAxisDis = adsk.core.ValueInput.createByReal(defaultAxisDis)
             inputs.addValueInput('axisDis', 'Distance at Axis', 'cm', initAxisDis) 
@@ -214,8 +219,8 @@ class EmbossTextCommandCreatedHandler(adsk.core.CommandCreatedEventHandler):
             #if flip the text feature: e.g. in Cut mode, feature creation might fail because 
             #no material the text feature can cut. so flip the feature to the other side that
             #has material.
-            isflip = inputs.addBoolValueInput('isFlipEmboss','Flip Emboss',True,'./resources',False)            
-            isflip.value = True
+            isFlipEmboss = inputs.addBoolValueInput('isFlipEmboss','Flip Emboss',True,'./resources',False)            
+            isFlipEmboss.value = True
             #emboss distance of text feature             
             initExtrudeDis = adsk.core.ValueInput.createByReal(defaultExtrudeDis)
             inputs.addValueInput('extrudeDis', 'Emboss Distance', 'cm', initExtrudeDis) 
@@ -264,6 +269,8 @@ class EmbossText:
         self._isFlipEmboss = False
         #workaround for font name
         self._fontName_by_typing = 'Arial'
+    	  #is flip direction at axis
+        self._isFlipDirAtAxis = False
 
     #properties
     @property
@@ -322,6 +329,14 @@ class EmbossText:
     def textAngle(self, value):
         self._textAngle = value 
 
+		
+    @property
+    def isFlipDirAtAxis(self):
+        return self._isFlipDirAtAxis
+    @isFlipDirAtAxis.setter
+    def isFlipDirAtAxis(self, value):
+        self._isFlipDirAtAxis = value  
+		
     @property
     def axisDis(self):
         return self._axisDis
@@ -408,7 +423,13 @@ class EmbossText:
                         (ReturnValue, partialU, partialV) = eval3d.getFirstDerivative(pt_2d)
                         #create a plane on the 3D position and U V.
                         plane = adsk.core.Plane.create(pt_3d,normals[0])
-                        plane.setUVDirections(partialV,partialU)
+                        if self.isFlipDirAtAxis:
+                            partialU.x = -partialU.x
+                            partialU.y = -partialU.y
+                            partialU.z = -partialU.z
+                            plane.setUVDirections(partialV,partialU)
+                        else:
+                            plane.setUVDirections(partialV,partialU)							
                         cons_planes = rootComp.constructionPlanes
                         cons_planeInput = cons_planes.createInput()
                         cons_planeInput.setByPlane(plane)
