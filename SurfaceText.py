@@ -560,7 +560,7 @@ def destroyObject(uiObj, tobeDeleteObj):
 def run(context):
     ui = None
     try:
-        commandName = 'Text on Surface'
+        commandName = 'Surface Text'
         commandDescription = "Place text on any surface with its letters distributed along the surface's parametric space"
         commandResources = './resources/command'
 

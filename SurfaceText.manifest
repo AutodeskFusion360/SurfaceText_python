@@ -4,7 +4,7 @@
 	"id":	"E2993E87-3C0F-4D56-929D-5462C5519F4B",
 	"author":	"Xiaodong Liang, Autodesk",
 	"description":	{
-		"":	"Design Text on a Surface"
+		"":	"Lets the user place text on various surfaces including a cylindrical face"
 	},
 	"version":	"1.0.0",
 	"runOnStartup":	true,
