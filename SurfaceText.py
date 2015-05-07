@@ -56,6 +56,14 @@ class EmbossTextCommandExecuteHandler(adsk.core.CommandEventHandler):
             unitsMgr = app.activeProduct.unitsManager
             command = args.firingEvent.sender
             inputs = command.commandInputs
+            
+            
+            d = {0:'mm',
+                  1:'cm',
+                  2:'m',
+                  3:'inch',
+                  4:'foot'}     
+            currentLenUnit = unitsMgr.formatUnits( d[unitsMgr.distanceDisplayUnits] )
 
             #emboss text instance to store the params
             embossText = EmbossText()
@@ -67,13 +75,13 @@ class EmbossTextCommandExecuteHandler(adsk.core.CommandEventHandler):
                     #global currentSel
                     #currentSel = input.selection(0).entity
                 elif input.id == 'fontHeight':
-                    embossText.fontHeight = unitsMgr.evaluateExpression(input.expression, "cm")
+                    embossText.fontHeight = unitsMgr.evaluateExpression(input.expression, currentLenUnit)
                 elif input.id == 'letterGap':
                     embossText.letterGap = unitsMgr.evaluateExpression(input.expressionOne, "rad")
                 elif input.id == 'booleanMethod':
                     embossText.booleanMethod = input.selectedItem.name
                 elif input.id == 'extrudeDis':
-                    embossText.extrudeDis = unitsMgr.evaluateExpression(input.expression, "cm")
+                    embossText.extrudeDis = unitsMgr.evaluateExpression(input.expression, currentLenUnit)
                 elif input.id == 'startAngle':
                     embossText.startAngle = unitsMgr.evaluateExpression(input.expressionOne, "rad")
                 elif input.id == 'isBold':
@@ -87,7 +95,7 @@ class EmbossTextCommandExecuteHandler(adsk.core.CommandEventHandler):
                 elif input.id == 'isFlipEmboss':
                     embossText.isFlipEmboss = input.value
                 elif input.id == 'axisDis':
-                    embossText.axisDis = unitsMgr.evaluateExpression(input.expression, "cm")
+                    embossText.axisDis = unitsMgr.evaluateExpression(input.expression, currentLenUnit)
                 #elif input.id == 'fontName':
                 #   embossText.fontName = input.selectedItem.name
                 if input.id == 'fontName_by_typing':
@@ -106,7 +114,7 @@ class EmbossTextCommandExecuteHandler(adsk.core.CommandEventHandler):
             #if ui:
                 #ui.messageBox('Failed:\n{}'.format(traceback.format_exc()))
             if warning_text_input:
-                warning_text_input.value = "Bad Input! This might be due to invalid font name or there is no material for Cut feature"
+                warning_text_input.value = "Bad Input! This might be due to invalid font name or no material for Cut feature"
 
 
 class EmbossTextCommandDestroyHandler(adsk.core.CommandEventHandler):
@@ -115,6 +123,7 @@ class EmbossTextCommandDestroyHandler(adsk.core.CommandEventHandler):
     def notify(self, args):
         app = adsk.core.Application.get()
         ui = app.userInterface
+        
         try:
             # when the command is done, terminate the script
             # this will release all globals which will remove all event handlers
@@ -167,6 +176,15 @@ class EmbossTextCommandCreatedHandler(adsk.core.CommandCreatedEventHandler):
             handlers_dialog.append(onExecutePreview)
             handlers_dialog.append(onDestroy)
 
+            unitsMgr = app.activeProduct.unitsManager
+            d = {0:'mm',
+                  1:'cm',
+                  2:'m',
+                  3:'inch',
+                  4:'foot'}     
+            currentLenUnit = unitsMgr.formatUnits( d[unitsMgr.distanceDisplayUnits] )
+           
+            
             #define the inputs
             inputs = cmd.commandInputs
 
@@ -198,7 +216,7 @@ class EmbossTextCommandCreatedHandler(adsk.core.CommandCreatedEventHandler):
 
             #font height
             initFontHeight = adsk.core.ValueInput.createByReal(defaultFontHeight)
-            inputs.addValueInput('fontHeight', 'Font Height','cm',initFontHeight)
+            inputs.addValueInput('fontHeight', 'Font Height',currentLenUnit,initFontHeight)
 
             #font is bold
             inputs.addBoolValueInput('isBold','Bold',True,'./resources',False)
@@ -218,7 +236,7 @@ class EmbossTextCommandCreatedHandler(adsk.core.CommandCreatedEventHandler):
 
             #the distance of text position along axis direction
             initAxisDis = adsk.core.ValueInput.createByReal(defaultAxisDis)
-            inputs.addValueInput('axisDis', 'Distance at Axis', 'cm', initAxisDis)
+            inputs.addValueInput('axisDis', 'Distance at Axis', currentLenUnit, initAxisDis)
 
             #distance of each letter
             inputs.addRangeCommandFloatInput('letterGap','Letter Gap', 'rad', -3.14, 3.14,False)
@@ -235,11 +253,11 @@ class EmbossTextCommandCreatedHandler(adsk.core.CommandCreatedEventHandler):
             isFlipEmboss.value = True
             #emboss distance of text feature
             initExtrudeDis = adsk.core.ValueInput.createByReal(defaultExtrudeDis)
-            inputs.addValueInput('extrudeDis', 'Emboss Distance', 'cm', initExtrudeDis)
+            inputs.addValueInput('extrudeDis', 'Emboss Distance', currentLenUnit, initExtrudeDis)
 
             global warning_text_input
             warning_text_input = inputs.addStringValueInput('warningText', 'Warning', '')
-            warning_text_input.isEnabled = False
+            warning_text_input.isEnabled = True
 
 
         except:
