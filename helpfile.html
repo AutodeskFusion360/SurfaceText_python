@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/TR/REC-html40" xml:lang="en" dir="ltr" class="js">
 <head>
     <meta http-equiv=Content-Type content="text/html; charset=utf-8">
-    <title>Fusion 360 Exchange - Sketch Checker Help</title>
+    <title>Fusion 360 Exchange - Surface Text Help</title>
     <link rel="icon"
           type="image/png"
           href="resources/command/32x32.png">
@@ -139,10 +139,9 @@
 <div id="plugin-node" class="node right-box content-area">
     <div class="plugin-help">
         <div id="heading">
-            <div id="plugin-icon"><img alt="Sketch Checker icon" width=64 height=64 src="resources/command/64x64.png"></div>
-            <div id="plugin-name"><h1 class="separator-line">Sketch Checker</h1></div>
-            <p id="plugin-description"><strong>Fusion 360</strong> add-in that lets the user check if there are any open
-                ended curves inside the sketch currently being edited.</p>
+            <div id="plugin-icon"><img alt="Surface Text icon" width=64 height=64 src="resources/command/64x64.png"></div>
+            <div id="plugin-name"><h1 class="separator-line">Surface Text</h1></div>
+            <p id="plugin-description"><strong>Fusion 360</strong> add-in that lets the user place text on various surfaces including a cylindrical face.</p>
         </div>
 
         <div id="navigation">
@@ -162,39 +161,37 @@
                 <img width=32 height=32 src="resources/command/32x32.png"/>
             </div>
             <div class="command name">
-                Check Sketch
+                Surface Text
             </div>
             <div class="command command-description">
-                Runs the command that will check the content of the sketch that is currently being edited.
-                <br />If it finds any curves that has end points which are not connecting to other sketch entities then it
-                highlights those sketch points.
+                Runs the command that will pop up a dialog with lots of options that can define how the text is created.
             </div>
         </div>
 
         <h3>Usage</h3>
 
-        <p>Once installed, the <strong>"Sketch Checker"</strong> add-in will create a new button in the menu of the
-            <strong>"Model"</strong> workspace's <strong>"Inspect"</strong> panel.<br/>
+        <p>Once installed, the <strong>"Surface Text"</strong> add-in will create a new button in the menu of the
+            <strong>"Model"</strong> workspace's <strong>"Create"</strong> panel.<br/>
 
-            <img src="resources/readme/SketchChecker3.png" alt=""/>
-            <br/>
-            Sometimes it can be difficult to identify at which point the sketch is not properly closed, and so cannot be
-            used as a profile for solid creation, e.g. <strong>Extrude</strong>.
-            <br />This add-in tries to help with that problem by identifying curves
-            which do not connect to other curves leaving the loop open:
-            <br/>
-            <img src="resources/readme/SketchChecker1.png" alt="" />
-            <br />
-            Though unlike Inventor, Fusion does not require the sketch curves to connect to each other through a
-            sketch point in order to use the enclosed area as a profile for solid creation,
-            <br />it could be considered a good practice and can make the sketch look cleaner.
-            <br />Unfortunately, if you do not follow that, this add-in will highlight false issues as well along the real ones.
-            <br />
-            <img src="resources/readme/SketchChecker2.png" alt="" />
-            <br />However, most of the time you should still be able to visually distinguish false results from good ones,
-            since the real issues are where the curves "seem to be" connected, but they are not.
-            <br />
-            <img src="resources/readme/SketchChecker4.png" alt="" />
+
+
+
+            <img src="resources/readme/text2.png" alt=""/> <br />
+
+            A face needs to be selected before running the command, otherwise you get a warning message. <br />
+
+            <img src="resources/readme/text3.png" alt="" /> <br />
+
+            There are many options you can set in the dialog including the Font that should be used for the text. <br />
+
+            <img src="resources/readme/text1.png" alt="" width="419" height="270" /> <br />
+            If you cannot see the text on a cylinder, then the easiest might be to play around with the
+            <strong>Start Angle</strong> value which will push the text around the side of the cylinder. <br />
+
+            If there are any issues with the provided parameters, e.g. the Font type does not exist, then there will be
+            information about that at the bottom of the dialog in the <strong>Warning</strong> section. <br />
+            <img src="resources/readme/text4.png" alt="" width="332" height="229" /> <br />
+
 
         </p>
 
@@ -213,7 +210,7 @@
         <h2 id="AdditionalInfo" name="AdditionalInfo">Additional Information</h2>
 
         <p> The source code for this add-in written in <a href="https://www.python.org">Python</a> is available inside the add-in's folder or on <a
-                href="https://github.com/AutodeskFusion360/SketchChecker_Python">GitHub</a><br/>
+                href="https://github.com/AutodeskFusion360/SurfaceText_python">GitHub</a><br/>
         </p>
         <br/>
         (C) Copyright 2015 by <a href="http://www.autodesk.com">Autodesk, Inc.</a> <br/>
@@ -231,8 +228,8 @@
 
         <h2 id="Contact" name="Contact">Contact</h2>
 
-        <p>This add-in was written by <a href="http://adndevblog.typepad.com/manufacturing/adam-nagy.html">Adam Nagy</a>.<br/>
-            Adam is a Developer Advocate at Autodesk, working as part of the Autodesk Developer Network program.<br/>
+        <p>This add-in was written by <a href="http://adndevblog.typepad.com/manufacturing/xiaodong-liang.html">Xiaodong Liang</a>.<br/>
+            Xiaodong is a Developer Advocate at Autodesk, working as part of the Autodesk Developer Network program.<br/>
 
         </p>
 
