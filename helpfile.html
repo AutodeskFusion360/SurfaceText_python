@@ -171,10 +171,7 @@
         <h3>Usage</h3>
 
         <p>Once installed, the <strong>"Surface Text"</strong> add-in will create a new button in the menu of the
-            <strong>"Model"</strong> workspace's <strong>"Create"</strong> panel.<br/>
-
-
-
+            <strong>"Model"</strong> workspace's <strong>"Create"</strong> panel.<br/> 
 
             <img src="resources/readme/text2.png" alt=""/> <br />
 
@@ -185,14 +182,31 @@
             There are many options you can set in the dialog including the Font that should be used for the text. <br />
 
             <img src="resources/readme/text1.png" alt="" width="419" height="270" /> <br />
-            If you cannot see the text on a cylinder, then the easiest might be to play around with the
+			If you cannot see the text on a cylinder, then the easiest might be to play around with the
             <strong>Start Angle</strong> value which will push the text around the side of the cylinder. <br />
-
-            If there are any issues with the provided parameters, e.g. the Font type does not exist, then there will be
-            information about that at the bottom of the dialog in the <strong>Warning</strong> section. <br />
-            <img src="resources/readme/text4.png" alt="" width="332" height="229" /> <br />
-
-
+			<p></p>
+			<ul>
+				<li><strong>Text:</strong> input the text string</li>
+				<li><strong>Font Name:</strong> input the font name. The default one is Arial which might be available in any platform.</li>
+				<li><strong>Font Height:</strong> specify the text height in the unit of this document</li>
+				<li><strong>Bold:</strong>specify whether the text string is bold</li>
+				<li><strong>Italic:</strong>specify whether the text string is italic</li>
+				<li><strong>Text Angle:</strong>specify the angle of each letter in radian. The angle is relative to the x-axis of the x-y plane of the sketch which the letter is created from</li>
+				<li><strong>Start Angle:</strong>specify the start angle of the first letter in radian. The angle is in the range scope of surface parameter.</li>
+				<li><strong>Flip Direction at Axis:</strong>specify the direction of the text string at axis of a cylinder face. When you see the text is upside down to you, you could consider to use this option</li>
+				<li><strong>Distance at Axis:</strong>specify the distance of the text along the axis of a cylinder face in the unit of this document. This distance is measured from the default location the add-in places the first letter</li>
+				<li><strong>Letter Gap:</strong>specify the gap of each letter. The gap is in radian from -PI to +PI. The positive value means the next letter is after the previous letter, while the negative is reversed. </li>
+				<li><strong>Boolean Method:</strong> specify the method to create the text feature. Cut means to cut material. Join means to add the material</li>
+				<li><strong>Flip Emboss:</strong>specify the direction of extrude feature of the text, along the normal at the text position of the surface</li>
+				<li><strong>Emboss Distance:</strong> specify the distance of the extrude feature in the unit of this document</li>
+				<li><strong>Warning:</strong>Not a parameter! It displays message if there are any issues with the provided parameters. The most possibilities of a failure would be:</li>
+					<ul>
+						<li><strong>Font Name:</strong>is invalid</li>
+						<li>in Cut mode of <strong>Boolean Method:</strong>, the text feature has not any material to cut. In such case, try to adjust the parameters until all text letters have material to cut</li>
+						<p></p>
+						<img src="resources/readme/text4.png" alt="" width="332" height="229" /> <br />
+					</ul>             
+			<ul>
         </p>
 
 
