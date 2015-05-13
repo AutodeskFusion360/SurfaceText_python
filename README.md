@@ -1,4 +1,4 @@
-# TextOnSurface_python
+# Surface Text (Add-In, Python)
 
 This add-in can design the extrude feature of text string on the cylinder face. The add-in's idea comes from this idea station post: [Extrude/Emboss text along a cylinder cirfumference](http://forums.autodesk.com/t5/fusion-360-ideastation-request-a/extrude-emboss-text-along-a-cylinder-cirfumference/idi-p/5543723)
 
